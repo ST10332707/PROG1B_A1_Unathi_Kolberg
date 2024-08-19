@@ -22,6 +22,8 @@ public class WorkerClass {
     
     private String studentEmail;
     
+    private String studentCourse;
+    
     private String username;
     
     private String password;
@@ -31,17 +33,18 @@ public class WorkerClass {
     }
     
     // constructor
-    public void UserAccount(int id, String fn, int a, String email, String un, String p) {
+    public void UserAccount(int id, String fn, int a, String email, String crs, String un, String p) {
         studentId = id;
         firstname = fn;
         studentAge = a;
         studentEmail = email;
+        studentCourse = crs;
         username = un;
         password = p;
     }
     @Override
     public String toString() {
-        return "[" + getStudentId() + " , " + getfirstname() + ", " + getStudentAge() + ", " + getStudentEmail() + ", " + getusername() + ", " + getpassword() + "]";
+        return "[" + getStudentId() + " , " + getfirstname() + ", " + getStudentAge() + ", " + getStudentEmail() + "]";
     }
     
     ///-----------------------------------------------------------------------//
@@ -86,6 +89,17 @@ public class WorkerClass {
         return username;
     }
     
+    //--------------------------------------------------------------------------//
+    public void setStudentCourse(String crs) {
+        studentCourse = crs;
+    }
+    
+    public String getStudentCourse() {
+        return studentCourse;
+    }
+    
+    //--------------------------------------------------------------------------//
+    
     public void setpassword(String p) {
         password = p;
     }
@@ -95,10 +109,11 @@ public class WorkerClass {
     }
     
     public void logins() {
-        System.out.println("a..Capture a new User");
-        System.out.println("b..Login User");
-        System.out.println("c..Display User information");
-        System.out.println("d..Quit");
+        System.out.println("1..Capture a new User");
+        System.out.println("2..Search for a student");
+        System.out.println("3..Delect a student");
+        System.out.println("4..Print Student Report");
+        System.out.println("5..Exit Application");
     }
     
     public String getOptions() {
@@ -108,95 +123,68 @@ public class WorkerClass {
     public void createUserAccount() {
         
         System.out.println("Enter your student id: ");
-        int id = this.input.nextLine();
+        int id = this.input.nextInt();
+        input.nextLine();
         
-        System.out.println("Enter your firstname: ");
+        System.out.println("Enter your Name: ");
         String fn = this.input.nextLine();
-        
-        System.out.println("Enter your student id: ");
-        int a = this.input.nextLine();
-        
+
+        int a = GetAge();
+                
         System.out.println("Enter your Email: ");
         String email = this.input.nextLine();
         
-        String un = GetUserName();
-        
-        String p = GetPassword();
+        System.out.println("Enter your course: ");
+        String crs = this.input.nextLine();
         
         setStudentId(id);
         setfirstname(fn);
         setStudentAge(a);
         setStudentEmail(email);
-        setusername(un);
-        setpassword(p);
+        setStudentCourse(crs);
         
         //System.out.println(registerUser());
-    }
-    
-    private String GetUserName()
-    {
-        System.out.println("Enter your username: ");
-        String un = input.nextLine();
-        
-//        if(!checkUsername(un))
-//        {
-//            System.out.println("UserName not Correct. Please Re Enter!");
-//            GetUserName();
-//        }
-        return un;     
-    }
-    
-    public String GetPassword() {
-        
-        System.out.println("Enter your password: ");
-        String p = input.nextLine();
-        
-//        if(!checkPasswordComplexity(p))
-//        {
-//            System.out.println("Password not Correct. Please Re Enter!");
-//            GetPassword();
-//        }
-        
-        return p;   
     }
     
      public void display() {
        System.out.println(toString());
     }
-//     
-//      public boolean loginUser(String un, String p) {
-//        Scanner input = new Scanner(System.in);
-//        
-//        System.out.println(registerUser());
-//        
-//        System.out.println("Enter a username to login: ");
-//        String uns = input.nextLine();
-//        
-//        System.out.println("Enter a password: ");
-//        String pw = input.nextLine();
-//        if(uns.equals(username) && pw.equals(password)) {
-//            System.out.println("Welcome to EasyKanban");
-//            return true; 
-//        }
-//        return false; 
-//    }
-//    
-//    public void dispatchLoop() {
-//        while(true) {
-//            logins();
-//            String options = getOptions();
-//            switch(options) {
-//                case "a" : createUserAccount();break;
+     
+     private int GetAge()
+    {
+        System.out.println("Enter your age: ");
+        int a = this.input.nextInt();
+        input.nextLine();
+        
+        if(!checkAge(a))
+        {
+            System.out.println("You have entered a incorrect student Age. Please Re Enter!");
+            GetAge();
+        }
+        return a;     
+    }
+     
+     
+    public void dispatchLoop() {
+        while(true) {
+            logins();
+            String options = getOptions();
+            switch(options) {
+                case "1" : createUserAccount();break;
 //                case "b" : loginUser(getusername(), getpassword());
 //                System.out.println(returnLoginStatus(getusername(), getpassword()));break;
 //                case "c" : display();break;
-//                case "d" : System.exit(0);
+                case "5" : System.exit(0);
 //                if(loginUser(options, options)== true) {
 //                    myMenu();
 //                    break;
 //                }
-//            }
-//        }
-//    }
+            }
+        }
+    }
+    
+    private boolean checkAge(int a) {
+        return a >= 16;
+    }
     
 }

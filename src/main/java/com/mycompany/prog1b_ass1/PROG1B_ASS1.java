@@ -13,6 +13,7 @@ public class PROG1B_ASS1 {
     private static WorkerClass workers = new WorkerClass();
     
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        
+        workers.dispatchLoop();
     }
 }
