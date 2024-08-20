@@ -14,6 +14,8 @@ public class WorkerClass {
     
     private Scanner input = new Scanner(System.in);
     
+    private int prompt;
+    
     private int studentId;
   
     private String firstname;
@@ -33,20 +35,25 @@ public class WorkerClass {
     }
     
     // constructor
-    public void UserAccount(int id, String fn, int a, String email, String crs, String un, String p) {
+    public void UserAccount(int p, int id, String fn, int a, String email, String crs) {
         studentId = id;
         firstname = fn;
         studentAge = a;
         studentEmail = email;
         studentCourse = crs;
-        username = un;
-        password = p;
+        prompt = p;
     }
     @Override
     public String toString() {
-        return "[" + getStudentId() + " , " + getfirstname() + ", " + getStudentAge() + ", " + getStudentEmail() + "]";
+        return "[" + getPrompt() + ", " + getStudentId() + ", " + getfirstname() + ", " + getStudentAge() + ", " + getStudentEmail() + "]";
     }
-    
+    //------------------------------------------------------------------------//
+    public void setPrompt(int p) {
+        prompt = p;
+    }
+    public int getPrompt() {
+        return prompt;
+    }
     ///-----------------------------------------------------------------------//
     public void setStudentId(int id) {
         studentId = id;
@@ -150,7 +157,23 @@ public class WorkerClass {
        System.out.println(toString());
     }
      
-     private int GetAge()
+    private int GetPromptUser()
+    {
+        System.out.println("Enter (1) to launch menu or any other key to exit: ");
+        int p = this.input.nextInt();
+        input.nextLine();
+        
+        if(FistInput(p))
+        {
+            System.out.println("You have entered a incorrect student Age. Please Re Enter!");
+            dispatchLoop();
+        } else {
+            System.exit(0);  
+        }
+        return p;       
+    }
+     
+    private int GetAge()
     {
         System.out.println("Enter your age: ");
         int a = this.input.nextInt();
@@ -166,20 +189,22 @@ public class WorkerClass {
      
      
     public void dispatchLoop() {
-        while(true) {
-            logins();
-            String options = getOptions();
-            switch(options) {
-                case "1" : createUserAccount();break;
-//                case "b" : loginUser(getusername(), getpassword());
-//                System.out.println(returnLoginStatus(getusername(), getpassword()));break;
-//                case "c" : display();break;
-                case "5" : System.exit(0);
-//                if(loginUser(options, options)== true) {
-//                    myMenu();
-//                    break;
-//                }
+        
+        System.out.println("Enter 1 to launch the menu or any other key to exit: ");
+        String choice = input.nextLine(); 
+        
+        if ("1".equals(choice)) {
+            while(true) {
+                logins();
+                String options = getOptions();
+                switch(options) {
+                    case "1" : createUserAccount();break;
+                    case "5" : System.exit(0);
+                    default:
+                        System.out.println("Invalid option. Please try again.");
+                }  
             }
+            
         }
     }
     
@@ -187,4 +212,7 @@ public class WorkerClass {
         return a >= 16;
     }
     
+    private boolean FistInput(int p) {
+        return p == 1;
+    }
 }

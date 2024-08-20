@@ -14,6 +14,7 @@ public class PROG1B_ASS1 {
     
     public static void main(String[] args) {
         
+        workers.getPrompt();
         workers.dispatchLoop();
     }
 }
