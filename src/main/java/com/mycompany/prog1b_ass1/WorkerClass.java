@@ -137,15 +137,27 @@ public class WorkerClass {
         System.out.println("Student added successfully!");
     }
     
+    //method to print Student report
     public void StudentReport() {
-       for(WorkerClass student : students) {
-           System.out.println(student.toString());
+        int count =1 ;
+        for(WorkerClass student : students) {//for loop to iterate through the Arraylist and dispaly the data 
+           System.out.println("Student " + count);
+            System.out.println("-------------");
+            System.out.println("Student Id: " + student.getStudentId());
+            System.out.println("Student Name: " + student.getfirstname());
+            System.out.println("Student Age: " + student.getStudentAge());
+            System.out.println("Student Email: " + student.getStudentEmail());
+            System.out.println("Student Course: " + student.getStudentCourse());
+            System.out.println(); // Open line 
+            count++;//increment the count by 1
+           
        }
     }
-     
+    
+    //method to check if age is valid
     private int GetAge()
     {
-        System.out.println("Enter your age: ");
+        System.out.println("Enter your age: ");//propmt the user to enter age
         int a = this.input.nextInt();
         input.nextLine();
         
@@ -170,6 +182,7 @@ public class WorkerClass {
                 switch(options) {
                     case "1" : saveStudent();break;
                     case "2" : searchStudent(); break;
+                    case "3" : deleteStudent(); break;
                     case "4" : StudentReport(); break;
                     case "5" : System.exit(0);
                     default:
@@ -192,6 +205,26 @@ public class WorkerClass {
         for (WorkerClass student : students) {
             if (student.getStudentId() == id) {
                 System.out.println("Student found: " + student);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Student not found.");
+        }
+    }
+    
+    public void deleteStudent() {
+        System.out.println(" Please enter your student ID to search: ");
+        int id = input.nextInt();
+        input.nextLine();
+
+        boolean found = false;
+        for (WorkerClass student : students) {
+            if (student.getStudentId() == id) {
+                students.remove(student);
+                System.out.println("Student has been deleted.");
                 found = true;
                 break;
             }
