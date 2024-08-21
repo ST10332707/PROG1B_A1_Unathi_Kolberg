@@ -1,7 +1,7 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
-
+////--------------------------------------------------------------------------UNK.....----------------------------------------------------------////
 package com.mycompany.prog1b_ass1;
 
 /**
@@ -14,7 +14,7 @@ public class PROG1B_ASS1 {
     
     public static void main(String[] args) {
         
-        workers.getPrompt();
         workers.dispatchLoop();
     }
 }
+////--------------------------------------------------------------------------UNK.....----------------------------------------------------------////

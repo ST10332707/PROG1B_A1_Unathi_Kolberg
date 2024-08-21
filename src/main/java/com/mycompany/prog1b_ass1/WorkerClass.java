@@ -2,6 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+////--------------------------------------------------------------------------UNK.....----------------------------------------------------------////
 package com.mycompany.prog1b_ass1;
 
 import java.util.Scanner;
@@ -14,10 +15,9 @@ import java.util.List;
  */
 public class WorkerClass {
     
-    private Scanner input = new Scanner(System.in);
+    private Scanner input = new Scanner(System.in);// Scanner object to take user input
     
-    private int prompt;
-    
+    // Fields to store student information
     private int studentId;
   
     private String firstname;
@@ -28,7 +28,7 @@ public class WorkerClass {
     
     private String studentCourse;
     
-    private List<WorkerClass> students = new ArrayList<>();
+    private List<WorkerClass> students = new ArrayList<>();//arraylist where all the data is going to be stored in
     
     public WorkerClass(){
         //This is the default constructor
@@ -44,15 +44,10 @@ public class WorkerClass {
     }
     @Override
     public String toString() {
-        return "[" + getPrompt() + ", " + getStudentId() + ", " + getfirstname() + ", " + getStudentAge() + ", " + getStudentEmail() + "]";
+        return "[" + getStudentId() + ", " + getfirstname() + ", " + getStudentAge() + ", " + getStudentEmail() + "]";
     }
-    //------------------------------------------------------------------------//
-    public void setPrompt(int p) {
-        prompt = p;
-    }
-    public int getPrompt() {
-        return prompt;
-    }
+    
+    //getters and setters 
     ///-----------------------------------------------------------------------//
     public void setStudentId(int id) {
         studentId = id;
@@ -95,6 +90,7 @@ public class WorkerClass {
         return studentCourse;
     }
     
+    //display the menu
     public void logins() {
         System.out.println("1..Capture a new User");
         System.out.println("2..Search for a student");
@@ -107,6 +103,7 @@ public class WorkerClass {
         return this.input.nextLine();
     }
     
+    //method to get and save student data from user
     public void saveStudent() {
         
         System.out.println("Enter your student id: ");
@@ -124,15 +121,8 @@ public class WorkerClass {
         System.out.println("Enter your course: ");
         String crs = this.input.nextLine();
         
-        
-//        setStudentId(id);
-//        setfirstname(fn);
-//        setStudentAge(a);
-//        setStudentEmail(email);
-//        setStudentCourse(crs);
-        
         WorkerClass student = new WorkerClass(id, fn, a, email, crs);
-        students.add(student);
+        students.add(student);//save data in the Arraylist
         
         System.out.println("Student added successfully!");
     }
@@ -169,22 +159,22 @@ public class WorkerClass {
         return a;     
     }
      
-     
+    // 
     public void dispatchLoop() {
         
         System.out.println("Enter 1 to launch the menu or any other key to exit: ");
         String choice = input.nextLine(); 
         
-        if ("1".equals(choice)) {
-            while(true) {
-                logins();
+        if ("1".equals(choice)) {//check if the user enter 1 
+            while(true) {//while to execute the code below 
+                logins();//display menu
                 String options = getOptions();
                 switch(options) {
-                    case "1" : saveStudent();break;
-                    case "2" : searchStudent(); break;
-                    case "3" : deleteStudent(); break;
-                    case "4" : StudentReport(); break;
-                    case "5" : System.exit(0);
+                    case "1" : saveStudent();break;//enable the user to capture user when 1 is entered
+                    case "2" : searchStudent(); break;//search for student when 2 is entered
+                    case "3" : deleteStudent(); break;//delete student
+                    case "4" : StudentReport(); break;//display student report when 4 is eneter
+                    case "5" : System.exit(0);//exit 5 is enter
                     default:
                         System.out.println("Invalid option. Please try again.");
                 }  
@@ -192,46 +182,55 @@ public class WorkerClass {
         }
     }
     
+    //method to check if age is valid
     private boolean checkAge(int a) {
         return a >= 16;
     }
     
+    //method to search for a student using student id
     public void searchStudent() {
+        //propmt the user to enter id 
         System.out.println(" Please enter your student ID to search: ");
         int id = input.nextInt();
         input.nextLine();
 
-        boolean found = false;
-        for (WorkerClass student : students) {
+        boolean found = false;// Flag to check if student was found
+        for (WorkerClass student : students) {//for loop to iterate through the Arraylist and dispaly the data
             if (student.getStudentId() == id) {
-                System.out.println("Student found: " + student);
+                System.out.println("Student Id: " + student.getStudentId());
+                System.out.println("Student Name: " + student.getfirstname());
+                System.out.println("Student Age: " + student.getStudentAge());
+                System.out.println("Student Email: " + student.getStudentEmail());
+                System.out.println("Student Course: " + student.getStudentCourse());
                 found = true;
-                break;
+                break;//exit the loop
             }
         }
-
+        //if id is not found
         if (!found) {
             System.out.println("Student not found.");
         }
     }
     
+    //metod to delete student using student id
     public void deleteStudent() {
         System.out.println(" Please enter your student ID to search: ");
         int id = input.nextInt();
         input.nextLine();
 
-        boolean found = false;
-        for (WorkerClass student : students) {
+        boolean found = false;// Flag to check if student was found
+        for (WorkerClass student : students) {//for loop to iterate through the Arraylist and dispaly the data
             if (student.getStudentId() == id) {
                 students.remove(student);
                 System.out.println("Student has been deleted.");
                 found = true;
-                break;
+                break;//exit the loop
             }
         }
-
+        //if id is not found
         if (!found) {
             System.out.println("Student not found.");
         }
     }
 }
+////--------------------------------------------------------------------------UNK.....----------------------------------------------------------////
