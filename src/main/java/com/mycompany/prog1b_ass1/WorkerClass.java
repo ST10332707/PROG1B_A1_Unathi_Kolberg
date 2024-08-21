@@ -5,6 +5,8 @@
 package com.mycompany.prog1b_ass1;
 
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -26,22 +28,19 @@ public class WorkerClass {
     
     private String studentCourse;
     
-    private String username;
-    
-    private String password;
+    private List<WorkerClass> students = new ArrayList<>();
     
     public WorkerClass(){
         //This is the default constructor
     }
-    
+  
     // constructor
-    public void UserAccount(int p, int id, String fn, int a, String email, String crs) {
-        studentId = id;
-        firstname = fn;
-        studentAge = a;
-        studentEmail = email;
-        studentCourse = crs;
-        prompt = p;
+    public WorkerClass(int id, String fn, int a, String email, String crs) {
+        this.studentId = id;
+        this.firstname = fn;
+        this.studentAge = a;
+        this.studentEmail = email;
+        this.studentCourse = crs;
     }
     @Override
     public String toString() {
@@ -88,31 +87,12 @@ public class WorkerClass {
     }
     
     //--------------------------------------------------------------------------//
-    public void setusername(String un) {
-        username = un;
-    }
-    
-    public String getusername() {
-        return username;
-    }
-    
-    //--------------------------------------------------------------------------//
     public void setStudentCourse(String crs) {
         studentCourse = crs;
     }
     
     public String getStudentCourse() {
         return studentCourse;
-    }
-    
-    //--------------------------------------------------------------------------//
-    
-    public void setpassword(String p) {
-        password = p;
-    }
-    
-    public String getpassword() {
-        return password;
     }
     
     public void logins() {
@@ -127,7 +107,7 @@ public class WorkerClass {
         return this.input.nextLine();
     }
     
-    public void createUserAccount() {
+    public void saveStudent() {
         
         System.out.println("Enter your student id: ");
         int id = this.input.nextInt();
@@ -144,33 +124,23 @@ public class WorkerClass {
         System.out.println("Enter your course: ");
         String crs = this.input.nextLine();
         
-        setStudentId(id);
-        setfirstname(fn);
-        setStudentAge(a);
-        setStudentEmail(email);
-        setStudentCourse(crs);
         
-        //System.out.println(registerUser());
+//        setStudentId(id);
+//        setfirstname(fn);
+//        setStudentAge(a);
+//        setStudentEmail(email);
+//        setStudentCourse(crs);
+        
+        WorkerClass student = new WorkerClass(id, fn, a, email, crs);
+        students.add(student);
+        
+        System.out.println("Student added successfully!");
     }
     
-     public void display() {
-       System.out.println(toString());
-    }
-     
-    private int GetPromptUser()
-    {
-        System.out.println("Enter (1) to launch menu or any other key to exit: ");
-        int p = this.input.nextInt();
-        input.nextLine();
-        
-        if(FistInput(p))
-        {
-            System.out.println("You have entered a incorrect student Age. Please Re Enter!");
-            dispatchLoop();
-        } else {
-            System.exit(0);  
-        }
-        return p;       
+    public void StudentReport() {
+       for(WorkerClass student : students) {
+           System.out.println(student.toString());
+       }
     }
      
     private int GetAge()
@@ -198,13 +168,14 @@ public class WorkerClass {
                 logins();
                 String options = getOptions();
                 switch(options) {
-                    case "1" : createUserAccount();break;
+                    case "1" : saveStudent();break;
+                    case "2" : searchStudent(); break;
+                    case "4" : StudentReport(); break;
                     case "5" : System.exit(0);
                     default:
                         System.out.println("Invalid option. Please try again.");
                 }  
-            }
-            
+            }    
         }
     }
     
@@ -212,7 +183,22 @@ public class WorkerClass {
         return a >= 16;
     }
     
-    private boolean FistInput(int p) {
-        return p == 1;
+    public void searchStudent() {
+        System.out.println(" Please enter your student ID to search: ");
+        int id = input.nextInt();
+        input.nextLine();
+
+        boolean found = false;
+        for (WorkerClass student : students) {
+            if (student.getStudentId() == id) {
+                System.out.println("Student found: " + student);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Student not found.");
+        }
     }
 }
